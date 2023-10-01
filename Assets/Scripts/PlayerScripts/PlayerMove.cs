@@ -9,12 +9,15 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D _rBody;
     [SerializeField]
     private SpriteRenderer _spRenderer;
+    private Vector2 _direction;
     private float _scaleX;
+    private PlayerCollision _collision;
 
     private void Start()
     {
         _rBody = GetComponent<Rigidbody2D>();
         _scaleX = transform.localScale.x;
+        _collision = GetComponent<PlayerCollision>();
        
 
         
@@ -23,36 +26,59 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        PlayerMovemant();
         PlayerJump();
+        GetInput();
+
+        
  
     }//Update
+    private void FixedUpdate()
+    {
+        PlayerMovemant();
+    }
+    private void GetInput()
+    
+    {
+        _direction.x = Input.GetAxis("Horizontal") ;
+
+
+    }
     private void PlayerMovemant()
     {
-        float _horizontalInput = Input.GetAxis("Horizontal");
+        
+        _rBody.MovePosition(_rBody.position +_direction * _moveSpeed * Time.fixedDeltaTime);
+        
 
-        _rBody.velocity = new Vector2(_horizontalInput* _moveSpeed,0f);
-
-        if(_horizontalInput < 0)
+        if(_direction.x < 0)
         {
-            transform.localScale = new Vector3(_scaleX* -1,transform.localScale.y,transform.localScale.z);
-            //_spRenderer.flipX = true;
+            transform.localScale = new Vector3(_scaleX* -1,transform.localScale.y,transform.localScale.z); 
         }
-        if(_horizontalInput > 0)
+        else if(_direction.x > 0)
         {
-            transform.localScale = new Vector3(_scaleX* 1,transform.localScale.y,transform.localScale.z);
-            //_spRenderer.flipX = false;
+            transform.localScale = new Vector3(_scaleX* 1,transform.localScale.y,transform.localScale.z); 
+        }
+        
+        if(_collision._isGrounded == true)
+        {
+            
+            _direction.y = Mathf.Max(_direction.y,-1f);
+        }
+        else
+        {
+            _direction += Physics2D.gravity * Time.deltaTime;
         }
 
     }//PlayerMovemant
     private void PlayerJump()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("Jump") && _collision._isGrounded == true) 
         {
-            _rBody.AddForce(Vector2.up*_jumpForce);
+            _collision._isGrounded = false;
+            _direction = Vector2.up * _jumpForce;
         }
 
 
     }//PlayerJump
+    
 
 }//Class
