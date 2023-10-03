@@ -13,6 +13,11 @@ public class PlayerMove : MonoBehaviour
     private float _scaleX;
     private PlayerCollision _collision;
 
+
+    //animation
+
+    public bool isJump = false,isWalk = false,isCover = false;
+
     private void Start()
     {
         _rBody = GetComponent<Rigidbody2D>();
@@ -51,16 +56,33 @@ public class PlayerMove : MonoBehaviour
 
         if(_direction.x < 0)
         {
-            transform.localScale = new Vector3(_scaleX* -1,transform.localScale.y,transform.localScale.z); 
+            transform.localScale = new Vector3(_scaleX* -1,transform.localScale.y,transform.localScale.z);
+            if(_collision._isGrounded == true && _direction.x < -0.2)
+            {
+                isWalk = true; 
+            }
+            
         }
         else if(_direction.x > 0)
         {
             transform.localScale = new Vector3(_scaleX* 1,transform.localScale.y,transform.localScale.z); 
+            if(_collision._isGrounded == true && _direction.x > 0.2)
+            {
+                isWalk = true; 
+            }
+        }
+        else
+        {
+            if(_collision._isGrounded == false || _direction.x == 0 )
+            {
+                isWalk = false;
+            }
+            
         }
         
         if(_collision._isGrounded == true)
         {
-            
+            isJump = false;
             _direction.y = Mathf.Max(_direction.y,-1f);
         }
         else
@@ -73,12 +95,24 @@ public class PlayerMove : MonoBehaviour
     {
         if(Input.GetButtonDown("Jump") && _collision._isGrounded == true) 
         {
+            isJump = true;
             _collision._isGrounded = false;
             _direction = Vector2.up * _jumpForce;
         }
 
 
     }//PlayerJump
+    private void PlayerCover()
+    {
+        if(Input.GetKey(KeyCode.S))
+        {
+            isCover = true;
+        }
+        else
+        {
+            isCover = false;
+        }
+    }
     
 
 }//Class
