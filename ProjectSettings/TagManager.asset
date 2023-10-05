@@ -8,6 +8,14 @@ TagManager:
   - DestroyPlat
   - MistryPlat
   - Enemy
+  - Coin
+  - Bstar
+  - Flower
+  - Spites
+  - Portal
+  - Flag
+  - Mushroom
+  - FlyEnemy
   layers:
   - Default
   - TransparentFX

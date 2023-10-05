@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    private float _moveSpeed = 10f,_jumpForce = 10f;
+    private float _moveSpeed = 10f,_upForce = 10f;
     private Rigidbody2D _rBody;
     [SerializeField]
     private SpriteRenderer _spRenderer;
@@ -31,23 +31,27 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        PlayerJump();
-        GetInput();
-
         
- 
+        GetInput();
+        PlayerCover();
+        
+
     }//Update
     private void FixedUpdate()
     {
         PlayerMovemant();
-    }
+    }//FixedUpdate
     private void GetInput()
     
     {
         _direction.x = Input.GetAxis("Horizontal") ;
+        if(Input.GetButtonDown("Jump") && _collision._isGrounded == true) 
+        {
+            PlayerJump(_upForce);
+        }
+        
 
-
-    }
+    }//GetInput
     private void PlayerMovemant()
     {
         
@@ -91,16 +95,13 @@ public class PlayerMove : MonoBehaviour
         }
 
     }//PlayerMovemant
-    private void PlayerJump()
+    public void PlayerJump(float _jumpForce)
     {
-        if(Input.GetButtonDown("Jump") && _collision._isGrounded == true) 
-        {
-            isJump = true;
-            _collision._isGrounded = false;
-            _direction = Vector2.up * _jumpForce;
-        }
-
-
+        
+        isJump = true;
+        _collision._isGrounded = false;
+        _direction = Vector2.up * _jumpForce;
+       
     }//PlayerJump
     private void PlayerCover()
     {
@@ -112,7 +113,7 @@ public class PlayerMove : MonoBehaviour
         {
             isCover = false;
         }
-    }
+    }//PlayerCover
     
 
 }//Class

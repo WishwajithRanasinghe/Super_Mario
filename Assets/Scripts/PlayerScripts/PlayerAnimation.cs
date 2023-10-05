@@ -13,12 +13,12 @@ public class PlayerAnimation : MonoBehaviour
         //_animator = GetComponentInChildren<Animator>();
         _moveScript = GetComponent<PlayerMove>();
         _collision = GetComponent<PlayerCollision>();
-    }
+    }//Start
 
     private void Update()
     {
         Animation();
-    }
+    }//Update
     private void Animation()
     {
         if(_moveScript.isJump == true)
@@ -29,10 +29,12 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsJump",false);
         }
+        
         if(_collision.hit == true)
         {
             _animator.SetTrigger("IsHit");
         }
+
         if(_moveScript.isWalk == true)
         {
             _animator.SetBool("IsWalk",true);
@@ -41,6 +43,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsWalk",false);
         }
+
         if(_moveScript.isCover == true)
         {
             _animator.SetBool("IsCover",true);
@@ -49,5 +52,5 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsCover",false);
         }
-    }
+    }//Animation
 }//Class

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2886304452394169517}
   - component: {fileID: 8414252951725724154}
   - component: {fileID: 5398719876257073037}
+  - component: {fileID: -4751938914213698631}
   m_Layer: 0
   m_Name: Mistrybox
   m_TagString: MistryPlat
@@ -108,3 +109,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &-4751938914213698631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910533173895721313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fadb09c3fc5c80446b1b9502cededbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lastPlat: {fileID: 2790176075649379869, guid: 3f6a1810215f2074dabb151b5452fc59,
+    type: 3}
+  _power: {fileID: 6999029825064867519, guid: 9a3e8739142c31c408be77641e09a215, type: 3}

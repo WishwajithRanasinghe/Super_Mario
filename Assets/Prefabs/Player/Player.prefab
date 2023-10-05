@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5593182188738746807}
   - component: {fileID: 5593182188738746804}
   - component: {fileID: 1482640047}
+  - component: {fileID: 720919789}
   m_Layer: 0
   m_Name: player_3c_0
   m_TagString: Untagged
@@ -102,6 +103,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!70 &720919789
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5593182188738746795}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.34343043, y: -0.60476077}
+  m_Size: {x: 0.4388786, y: 1.0914352}
+  m_Direction: 0
 --- !u!1 &5593182189997379836
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +131,6 @@ GameObject:
   - component: {fileID: 5593182189997379838}
   - component: {fileID: 5593182189997379832}
   - component: {fileID: 5593182189997379835}
-  - component: {fileID: 5593182189997379839}
   - component: {fileID: 358220799}
   m_Layer: 0
   m_Name: Player
@@ -172,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 4
-  _jumpForce: 4
+  _upForce: 4
   _spRenderer: {fileID: 5593182188738746804}
   isJump: 0
   isWalk: 0
@@ -195,22 +211,6 @@ MonoBehaviour:
     type: 3}
   hit: 0
   _point: 0
---- !u!70 &5593182189997379839
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5593182189997379836}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.019280285, y: 0.039809227}
-  m_Size: {x: 0.53856057, y: 1.0831928}
-  m_Direction: 0
 --- !u!114 &358220799
 MonoBehaviour:
   m_ObjectHideFlags: 0

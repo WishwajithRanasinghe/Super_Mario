@@ -34,6 +34,9 @@ public class GroundEnemy : MonoBehaviour
                 _isLaft = true;
             }
         }
+        Vector3 position = transform.position;
+        position.x = Mathf.Clamp(position.x,(_startPosition.x -_walkDistance/2),(_startPosition.x + _walkDistance/2));
+        transform.position = position;
      
     }
     private void FixedUpdate()
