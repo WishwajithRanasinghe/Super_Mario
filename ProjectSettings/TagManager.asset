@@ -16,6 +16,12 @@ TagManager:
   - Flag
   - Mushroom
   - FlyEnemy
+  - DownPlat
+  - Egg
+  - FlowerBullet
+  - Hart
+  - UI
+  - Audio
   layers:
   - Default
   - TransparentFX

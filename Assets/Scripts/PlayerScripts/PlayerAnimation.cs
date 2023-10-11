@@ -52,5 +52,13 @@ public class PlayerAnimation : MonoBehaviour
         {
             _animator.SetBool("IsCover",false);
         }
+        if(_moveScript.isFire == true)
+        {
+            _animator.SetBool("Throw",true);
+        }
+        else
+        {
+            _animator.SetBool("Throw",false);
+        }
     }//Animation
 }//Class

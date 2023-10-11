@@ -116,6 +116,19 @@ public class FlyEnemy : MonoBehaviour
                     _isLeft = true;
                 }
             break;
+            case "FlowerBullet":
+        
+                if(collision.gameObject.GetComponent<FlowerBullet>() != null)
+                {
+                    collision.gameObject.GetComponent<FlowerBullet>().DestroyObject();
+
+                }
+            
+                SetDie();
+                Destroy(this.gameObject,2f);
+                Debug.Log("Destroy");
+            break;
+        
         }
         
     }//OnCollisionEnter2D

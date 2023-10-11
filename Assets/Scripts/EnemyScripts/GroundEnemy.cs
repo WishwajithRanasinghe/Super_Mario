@@ -9,9 +9,11 @@ public class GroundEnemy : MonoBehaviour
     [SerializeField] private float _walkDistance;
     private bool _isLaft = true;
     private GEnemyAnimation _animScript;
+    
     private Vector2 _startPosition;
     private int _dieCheck;
     private float _scaleX;
+   
     private void Start()
     {
         _rBody = GetComponent<Rigidbody2D>();
@@ -66,12 +68,21 @@ public class GroundEnemy : MonoBehaviour
     }//FixedUpdate
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Ground")
+       
+        if(collision.transform.tag == "FlowerBullet")
         {
- 
-            Debug.Log("No !");
+            if(collision.gameObject.GetComponent<FlowerBullet>() != null)
+            {
+                collision.gameObject.GetComponent<FlowerBullet>().DestroyObject();
+
+            }
+            
+            _animScript._hitPlayer = true;
+            Destroy(this.gameObject,2f);
+            Debug.Log("Destroy");
         }
-        else
+        
+        if(collision.transform.tag != "Ground" || collision.transform.tag != "FlowerBullet")
         {
             if(_isLaft == true)
             {
@@ -83,5 +94,6 @@ public class GroundEnemy : MonoBehaviour
             }
 
         }
+        
     }//OnCollisionEnter
 }//Class

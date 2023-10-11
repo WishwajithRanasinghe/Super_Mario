@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField]
-    private float _moveSpeed = 10f,_upForce = 10f;
+    [SerializeField] private float _moveSpeed = 10f,_upForce = 10f;
     private Rigidbody2D _rBody;
-    [SerializeField]
-    private SpriteRenderer _spRenderer;
+    [SerializeField] private SpriteRenderer _spRenderer;
+    [SerializeField] private GameObject _flowerBullet;
+    [SerializeField] private Transform _bullatpos;
     private Vector2 _direction;
     private float _scaleX;
     private PlayerCollision _collision;
+    private AudioScript _audio;
+
+    public bool isLaft;
+    
 
 
     //animation
 
-    public bool isJump = false,isWalk = false,isCover = false;
+    public bool isJump = false,isWalk = false,isCover = false , isFire = false;
 
-    private void Start()
+    private void Awake()
     {
         _rBody = GetComponent<Rigidbody2D>();
-        _scaleX = transform.localScale.x;
+         _audio = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioScript>();
+        
         _collision = GetComponent<PlayerCollision>();
        
 
         
-    }//Start
+    }//Awake
+    private void Start()
+    {
+        _scaleX = transform.localScale.x;
+    }//start
 
 
     private void Update()
@@ -34,6 +43,11 @@ public class PlayerMove : MonoBehaviour
         
         GetInput();
         PlayerCover();
+        PlayerFire();
+        if(_collision._bullet > 0)
+        {
+            
+        }
         
 
     }//Update
@@ -48,10 +62,35 @@ public class PlayerMove : MonoBehaviour
         if(Input.GetButtonDown("Jump") && _collision._isGrounded == true) 
         {
             PlayerJump(_upForce);
+            
         }
-        
+
 
     }//GetInput
+
+    private void PlayerFire()
+    {
+        if(Input.GetKeyDown(KeyCode.RightControl))
+        {
+            if(_collision._bullet > 0)
+            {
+                Instantiate(_flowerBullet,_bullatpos.position,Quaternion.identity);
+                _collision._bullet --;
+                isFire = true;
+                _audio.Fire();
+            }
+        
+            
+            
+            
+
+        }
+        if(Input.GetKeyUp(KeyCode.RightControl))
+        {
+            isFire = false;
+        }
+
+    }//PlayerFire
     private void PlayerMovemant()
     {
         
@@ -60,19 +99,22 @@ public class PlayerMove : MonoBehaviour
 
         if(_direction.x < 0)
         {
-            transform.localScale = new Vector3(_scaleX* -1,transform.localScale.y,transform.localScale.z);
+
+            transform.localRotation = new Quaternion(transform.rotation.x,180f,transform.rotation.z,0f);
             if(_collision._isGrounded == true && _direction.x < -0.2)
             {
-                isWalk = true; 
+                isWalk = true;
+                isLaft = true;
             }
             
         }
         else if(_direction.x > 0)
         {
-            transform.localScale = new Vector3(_scaleX* 1,transform.localScale.y,transform.localScale.z); 
+            transform.localRotation = new Quaternion(transform.rotation.x,0f,transform.rotation.z,0f);
             if(_collision._isGrounded == true && _direction.x > 0.2)
             {
                 isWalk = true; 
+                isLaft = false;
             }
         }
         else
@@ -97,7 +139,8 @@ public class PlayerMove : MonoBehaviour
     }//PlayerMovemant
     public void PlayerJump(float _jumpForce)
     {
-        
+
+        _audio.Jump(); 
         isJump = true;
         _collision._isGrounded = false;
         _direction = Vector2.up * _jumpForce;
