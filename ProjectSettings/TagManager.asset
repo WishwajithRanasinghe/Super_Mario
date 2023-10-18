@@ -22,6 +22,7 @@ TagManager:
   - Hart
   - UI
   - Audio
+  - MovePlat
   layers:
   - Default
   - TransparentFX

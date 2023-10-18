@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public bool _isGrounded = false;
+    public bool _isGrounded = false,isMoveplat = false;
     public bool _isEnemyKill = false;
     [SerializeField] private GameObject _destroyEffect; // mis;
     public bool hit = false;
@@ -30,6 +30,7 @@ public class PlayerCollision : MonoBehaviour
     {
         _starthitTime = _hitTime;
         _startsafeTime = _safeTime;
+        
     }//Start
 
     private void Update()
@@ -223,6 +224,18 @@ public class PlayerCollision : MonoBehaviour
                 HelthDeSystum();
             break;
 
+
+
+
+            
+            ////////......................
+            case "MovePlat":
+                isMoveplat = true;
+                _isGrounded = true;
+                
+
+            break;
+
             case "Flag":
                 _isGrounded = true;
             break;
@@ -233,7 +246,7 @@ public class PlayerCollision : MonoBehaviour
             default:
                 if(collision.gameObject.transform.position.y < transform.position.y)
                 {
-                    //_isGrounded = true;
+                    _isGrounded = true;
                 }
                 
             break;
@@ -241,6 +254,49 @@ public class PlayerCollision : MonoBehaviour
         }
 
     }//OnCollisionEnter2D
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+       /* switch (collision.transform.tag)
+        {
+            case "Ground" :
+                _isGrounded = false;
+            break;
+
+            case "DestroyPlat":
+                _isGrounded = false;
+            break;
+
+            case "Enemy":
+
+                _isGrounded = false;
+            break;
+
+            case "FlyEnemy":  
+               _isGrounded = false;
+            break;
+            case "MistryPlat":
+                _isGrounded = false;
+            break;
+            case "DownPlat":
+
+                _isGrounded = false;
+
+            break;
+
+            case "Spites":
+                _isGrounded = false;
+              
+            break;
+
+            case "Flag":
+                _isGrounded = false;
+            break;
+
+            case "Portal":
+                _isGrounded = false;
+            break;
+        }*/
+    }
 
     //Powers
     private void OnTriggerEnter2D(Collider2D collider)

@@ -9,12 +9,14 @@ public class MovePlatform : MonoBehaviour
     [SerializeField] private bool _isHorizontal;
 
     private Vector3 _startPos;
-    private bool _isRight,_isUp;
+    private bool _isRight,_isUp,_isPlayer;
+    private GameObject _player;
 
 
     private void Start()
     {
         _startPos = transform.position;
+        _player = GameObject.FindGameObjectWithTag("Player");
         
     }//Start
     // Update is called once per frame
@@ -64,10 +66,51 @@ public class MovePlatform : MonoBehaviour
                 transform.position = new Vector3(transform.position.x,transform.position.y - 1 * _moveSpeed * Time.deltaTime,transform.position.x);
             }
         }
+
+
+
+
+
+
+
+        //...........................................
+        if(_isPlayer == true)
+        {
+            if(_player != null)
+            {
+                _player.GetComponent<Rigidbody2D>().isKinematic = true;
+                _player.gameObject.transform.SetParent(this.gameObject.transform);
+                
+            }
+        }
+        else
+        {
+            if(_player != null)
+            {
+                _player.GetComponent<Rigidbody2D>().isKinematic = false;
+                _player.gameObject.transform.SetParent(p: null);
+            }
+        }
+        
         
 
 
         
         
     }//Update 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if(collision.transform.tag == ("Player"))
+        {
+            _isPlayer = true;
+        }
+    }
+    private void OnCollisionExit2D(Collider2D collision)
+    {
+        if(collision.transform.tag == ("Player"))
+        {
+            _isPlayer = false;
+        }
+    }
 }//Class

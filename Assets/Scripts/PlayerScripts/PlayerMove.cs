@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -79,11 +80,6 @@ public class PlayerMove : MonoBehaviour
                 isFire = true;
                 _audio.Fire();
             }
-        
-            
-            
-            
-
         }
         if(Input.GetKeyUp(KeyCode.RightControl))
         {
@@ -129,7 +125,14 @@ public class PlayerMove : MonoBehaviour
         if(_collision._isGrounded == true)
         {
             isJump = false;
+            if(_collision.isMoveplat == true)
+            {
+                _direction.y = Mathf.Max(_direction.y,0f);
+            }
+            else
+            {
             _direction.y = Mathf.Max(_direction.y,-1f);
+            }
         }
         else
         {
